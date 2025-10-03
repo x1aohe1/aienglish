@@ -1,187 +1,229 @@
-// index.js
+// pages/index/index.js
 Page({
-  data: {
-    showTip: false,
-    powerList: [
-      {
-        title: '云托管',
-        tip: '不限语言的全托管容器服务',
-        showItem: false,
-        item: [
-          {
-            type: 'cloudbaserun',
-            title: '云托管调用',
-          },
-        ],
+    data: {
+      userInfo: {},
+      todayStats: {
+        learnedWords: 0,
+        studyTime: 0,
+        accuracy: 0
       },
-      {
-        title: '云函数',
-        tip: '安全、免鉴权运行业务代码',
-        showItem: false,
-        item: [
-          {
-            type: 'getOpenId',
-            title: '获取OpenId',
-          },
-          {
-            type: 'getMiniProgramCode',
-            title: '生成小程序码',
-          },
-        ],
+      overallStats: {
+        totalWords: 0,
+        continuousDays: 0,
+        totalGroups: 0
       },
-      {
-        title: '数据库',
-        tip: '安全稳定的文档型数据库',
-        showItem: false,
-        item: [
-          {
-            type: 'createCollection',
-            title: '创建集合',
-          },
-          {
-            type: 'selectRecord',
-            title: '增删改查记录',
-          },
-          // {
-          //   title: '聚合操作',
-          //   page: 'sumRecord',
-          // },
-        ],
-      },
-      {
-        title: '云存储',
-        tip: '自带CDN加速文件存储',
-        showItem: false,
-        item: [
-          {
-            type: 'uploadFile',
-            title: '上传文件',
-          },
-        ],
-      },
-      // {
-      //   type: 'singleTemplate',
-      //   title: '云模板',
-      //   tip: '基于页面模板，快速配置、搭建小程序页面',
-      //   tag: 'new',
-      // },
-      // {
-      //   type: 'cloudBackend',
-      //   title: '云后台',
-      //   tip: '开箱即用的小程序后台管理系统',
-      // },
-      {
-        title: '拓展能力-AI',
-        tip: '云开发 AI 拓展能力',
-        showItem: false,
-        item: [
-          {
-            type: 'model-guide',
-            title: '大模型对话指引'
-          },
-        ],
-      },
-    ],
-    haveCreateCollection: false,
-    title: "",
-    content: ""
-  },
-  onClickPowerInfo(e) {
-    const app = getApp()
-    if(!app.globalData.env) {
-      wx.showModal({
-        title: '提示',
-        content: '请在 `miniprogram/app.js` 中正确配置 `env` 参数'
-      })
-      return 
-    }
-    console.log("click e", e)
-    const index = e.currentTarget.dataset.index;
-    const powerList = this.data.powerList;
-    const selectedItem = powerList[index];
-    console.log("selectedItem", selectedItem)
-    if (selectedItem.link) {
-      wx.navigateTo({
-        url: `../web/index?url=${selectedItem.link}&title=${selectedItem.title}`,
+      recentGroups: [],
+      quickActions: [
+        { id: 'learn', name: '开始学习', icon: '📚', color: '#667eea' },
+        { id: 'review', name: '复习', icon: '🔄', color: '#ff7675' },
+        { id: 'groups', name: '我的群组', icon: '👥', color: '#74b9ff' },
+        { id: 'stats', name: '学习报告', icon: '📊', color: '#55efc4' }
+      ],
+      isLoading: true
+    },
+  
+    onLoad: function (options) {
+      this.loadHomeData();
+    },
+  
+    onShow: function () {
+      this.loadHomeData();
+    },
+  
+    // 加载首页数据
+    loadHomeData: function () {
+      var that = this;
+      
+      wx.showLoading({
+        title: '加载中...'
       });
-    } else if (selectedItem.type) {
-      console.log("selectedItem", selectedItem)
-      wx.navigateTo({
-        url: `/pages/example/index?envId=${this.data.selectedEnv?.envId}&type=${selectedItem.type}`,
+  
+      // 设置默认数据，避免云函数不存在时页面空白
+      that.setData({
+        userInfo: { nickName: '学习者', avatarUrl: '' },
+        todayStats: { learnedWords: 0, studyTime: 0, accuracy: 0 },
+        overallStats: { totalWords: 0, continuousDays: 0, totalGroups: 0 },
+        recentGroups: []
       });
-    } else if (selectedItem.page) {
-      wx.navigateTo({
-        url: `/pages/${selectedItem.page}/index`,
+  
+      Promise.all([
+        that.getUserInfo().catch(function(err) {
+          console.log('获取用户信息失败，使用默认值');
+          return Promise.resolve();
+        }),
+        that.getTodayStats().catch(function(err) {
+          console.log('获取今日统计失败，使用默认值');
+          return Promise.resolve();
+        }),
+        that.getOverallStats().catch(function(err) {
+          console.log('获取总体统计失败，使用默认值');
+          return Promise.resolve();
+        }),
+        that.getRecentGroups().catch(function(err) {
+          console.log('获取最近群组失败，使用默认值');
+          return Promise.resolve();
+        })
+      ]).then(function() {
+        wx.hideLoading();
+        that.setData({ isLoading: false });
+      }).catch(function(err) {
+        wx.hideLoading();
+        console.error('加载首页数据失败:', err);
+        that.setData({ isLoading: false });
       });
-    } else if (
-      selectedItem.title === '数据库' &&
-      !this.data.haveCreateCollection
-    ) {
-      this.onClickDatabase(powerList,selectedItem);
-    } else {
-      selectedItem.showItem = !selectedItem.showItem;
-      this.setData({
-        powerList,
-      });
-    }
-  },
-
-  jumpPage(e) {
-    const { type, page } = e.currentTarget.dataset;
-    console.log("jump page", type, page)
-    if (type) {
-      wx.navigateTo({
-        url: `/pages/example/index?envId=${this.data.selectedEnv?.envId}&type=${type}`,
-      });
-    } else {
-      wx.navigateTo({
-        url: `/pages/${page}/index?envId=${this.data.selectedEnv?.envId}`,
-      });
-    }
-  },
-
-  onClickDatabase(powerList,selectedItem) {
-    wx.showLoading({
-      title: '',
-    });
-    wx.cloud
-      .callFunction({
-        name: 'quickstartFunctions',
-        data: {
-          type: 'createCollection',
-        },
-      })
-      .then((resp) => {
-        if (resp.result.success) {
-          this.setData({
-            haveCreateCollection: true,
-          });
-        }
-        selectedItem.showItem = !selectedItem.showItem;
-        this.setData({
-          powerList,
+    },
+  
+    // 获取用户信息
+    getUserInfo: function () {
+      var that = this;
+      return new Promise(function(resolve, reject) {
+        wx.cloud.callFunction({
+          name: 'getUserInfo'
+        }).then(function(res) {
+          if (res.result.code === 200) {
+            that.setData({
+              userInfo: res.result.data
+            });
+          }
+          resolve();
+        }).catch(function(err) {
+          console.log('获取用户信息失败，使用默认值');
+          resolve();
         });
-        wx.hideLoading();
-      })
-      .catch((e) => {
-        wx.hideLoading();
-        const { errCode, errMsg } = e
-        if (errMsg.includes('Environment not found')) {
-          this.setData({
-            showTip: true,
-            title: "云开发环境未找到",
-            content: "如果已经开通云开发，请检查环境ID与 `miniprogram/app.js` 中的 `env` 参数是否一致。"
-          });
-          return
-        }
-        if (errMsg.includes('FunctionName parameter could not be found')) {
-          this.setData({
-            showTip: true,
-            title: "请上传云函数",
-            content: "在'cloudfunctions/quickstartFunctions'目录右键，选择【上传并部署-云端安装依赖】，等待云函数上传完成后重试。"
-          });
-          return
-        }
       });
-  },
-});
+    },
+  
+    // 获取今日学习统计
+    getTodayStats: function () {
+      var that = this;
+      return new Promise(function(resolve, reject) {
+        wx.cloud.callFunction({
+          name: 'getTodayStats'
+        }).then(function(res) {
+          if (res.result.code === 200) {
+            that.setData({
+              todayStats: res.result.data
+            });
+          }
+          resolve();
+        }).catch(function(err) {
+          console.log('获取今日统计失败，使用默认值');
+          resolve();
+        });
+      });
+    },
+  
+    // 获取总体统计
+    getOverallStats: function () {
+      var that = this;
+      return new Promise(function(resolve, reject) {
+        wx.cloud.callFunction({
+          name: 'getOverallStats'
+        }).then(function(res) {
+          if (res.result.code === 200) {
+            that.setData({
+              overallStats: res.result.data
+            });
+          }
+          resolve();
+        }).catch(function(err) {
+          console.log('获取总体统计失败，使用默认值');
+          resolve();
+        });
+      });
+    },
+  
+    // 获取最近群组
+    getRecentGroups: function () {
+      var that = this;
+      return new Promise(function(resolve, reject) {
+        wx.cloud.callFunction({
+          name: 'getRecentGroups'
+        }).then(function(res) {
+          if (res.result.code === 200) {
+            that.setData({
+              recentGroups: res.result.data
+            });
+          }
+          resolve();
+        }).catch(function(err) {
+          console.log('获取最近群组失败，使用默认值');
+          resolve();
+        });
+      });
+    },
+  
+    // 快速操作点击
+    onQuickAction: function (e) {
+      var actionId = e.currentTarget.dataset.id;
+      console.log('点击了按钮:', actionId);
+      
+      switch (actionId) {
+        case 'learn':
+          this.startLearning();
+          break;
+        case 'review':
+          this.startReview();
+          break;
+        case 'groups':
+          this.goToGroups();
+          break;
+        case 'stats':
+          this.viewStats();
+          break;
+      }
+    },
+  
+    // 开始学习
+    startLearning: function () {
+      console.log('开始学习');
+      wx.navigateTo({
+        url: '/pages/learn/learn'
+      });
+    },
+  
+    // 开始复习
+    startReview: function () {
+      console.log('开始复习');
+      wx.showToast({
+        title: '复习功能开发中',
+        icon: 'none'
+      });
+    },
+  
+    // 前往群组
+    goToGroups: function () {
+      console.log('前往群组');
+      wx.navigateTo({
+        url: '/pages/group/list'
+      });
+    },
+  
+    // 查看统计
+    viewStats: function () {
+      console.log('查看统计');
+      wx.showToast({
+        title: '学习报告开发中',
+        icon: 'none'
+      });
+    },
+  
+    // 点击群组
+    onGroupTap: function (e) {
+      var groupId = e.currentTarget.dataset.id;
+      var groupName = e.currentTarget.dataset.name;
+      
+      console.log('点击群组:', groupName);
+      wx.navigateTo({
+        url: '/pages/group/group?groupId=' + groupId + '&groupName=' + encodeURIComponent(groupName)
+      });
+    },
+  
+    // 分享功能
+    onShareAppMessage: function () {
+      return {
+        title: '我在用这个超好用的背单词小程序！',
+        path: '/pages/index/index'
+      };
+    }
+  })

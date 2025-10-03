@@ -1,0 +1,133 @@
+/* pages/learn/summary.wxss */
+.summary-container {
+    padding: 30rpx;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  /* 头部成就 */
+  .achievement-header {
+    text-align: center;
+    color: white;
+    margin-bottom: 60rpx;
+  }
+  
+  .achievement-icon {
+    font-size: 80rpx;
+    margin-bottom: 20rpx;
+  }
+  
+  .achievement-title {
+    font-size: 48rpx;
+    font-weight: bold;
+    margin-bottom: 10rpx;
+  }
+  
+  .achievement-subtitle {
+    font-size: 28rpx;
+    opacity: 0.9;
+  }
+  
+  /* 统计部分 */
+  .stats-section, .achievement-section {
+    background: white;
+    border-radius: 20rpx;
+    padding: 40rpx;
+    margin-bottom: 30rpx;
+    box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.1);
+  }
+  
+  .section-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    margin-bottom: 30rpx;
+    color: #333;
+  }
+  
+  /* 统计网格 */
+  .stats-grid {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .stat-item {
+    text-align: center;
+    flex: 1;
+  }
+  
+  .stat-value {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 10rpx;
+  }
+  
+  .stat-label {
+    font-size: 24rpx;
+    color: #666;
+  }
+  
+  /* 成就列表 */
+  .achievement-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30rpx;
+  }
+  
+  .achievement-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .achievement-icon {
+    font-size: 40rpx;
+    margin-right: 20rpx;
+    width: 60rpx;
+    text-align: center;
+  }
+  
+  .achievement-content {
+    flex: 1;
+  }
+  
+  .achievement-text {
+    font-size: 28rpx;
+    color: #666;
+    margin-bottom: 5rpx;
+  }
+  
+  .achievement-value {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* 操作按钮 */
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20rpx;
+  }
+  
+  .btn-primary, .btn-secondary, .btn-outline {
+    border-radius: 50rpx;
+    height: 90rpx;
+    font-size: 32rpx;
+    border: none;
+  }
+  
+  .btn-primary {
+    background: #667eea;
+    color: white;
+  }
+  
+  .btn-secondary {
+    background: #ff7675;
+    color: white;
+  }
+  
+  .btn-outline {
+    background: transparent;
+    border: 2rpx solid white;
+    color: white;
+  }

@@ -1,0 +1,85 @@
+<!-- pages/group/group.wxml -->
+<view class="container">
+  <!-- 邀请码板块 - 仅创建者可见 -->
+  <view class="invite-section" wx:if="{{userRole === 'creator'}}">
+    <button class="share-btn" bindtap="onShareGroup">分享群组</button>
+    <button class="manage-btn" bindtap="onManageMembers" wx:if="{{userRole === 'creator'}}">管理成员</button>
+    
+    <view class="section-header">
+      <text class="section-title">📨 群组邀请</text>
+    </view>
+    <!-- 在按钮区域添加开始学习按钮 -->
+<button class="btn primary-btn" bindtap="onStartLearning">开始学习</button>
+    <view class="invite-code-card">
+      <view class="invite-code-info">
+        <text class="code-label">邀请码</text>
+        <text class="code-value">{{currentGroup.inviteCode}}</text>
+        <text class="code-tip">分享此邀请码，好友可直接加入</text>
+      </view>
+      <button class="copy-btn" bindtap="onCopyInviteCode">复制</button>
+    </view>
+
+    <view class="invite-actions">
+      <button class="share-btn" bindtap="onShareGroup">分享群组</button>
+    </view>
+  </view>
+
+  <!-- 排名切换标签 -->
+  <view class="rank-tabs">
+    <view 
+      class="tab {{sortBy=='words'?'active':''}}" 
+      bindtap="switchTab" 
+      data-sort="words"
+    >
+      📊 单词榜
+    </view>
+    <view 
+      class="tab {{sortBy=='time'?'active':''}}" 
+      bindtap="switchTab" 
+      data-sort="time"
+    >
+      ⏱️ 时长榜
+    </view>
+  </view>
+
+  <!-- 排名列表 -->
+  <view class="rank-list">
+    <view wx:for="{{rankList}}" wx:key="index" class="rank-item">
+      <text class="rank-num">{{index + 1}}</text>
+      <image class="avatar" src="{{item.userInfo.avatarUrl}}"></image>
+      <text class="nickname">{{item.userInfo.nickName}}</text>
+      <text class="score">
+        {{sortBy === 'words' ? item.totalWordsLearned + ' 词' : Math.floor(item.totalStudyTime/60) + ' 分钟'}}
+      </text>
+    </view>
+
+    <view wx:if="{{rankList.length === 0}}" class="empty-tip">
+      🏃‍♂️ 还没有排名数据，快去学习吧！
+    </view>
+  </view>
+
+  <!-- 操作板块 - 成员显示退出，创建者显示解散 -->
+  <view class="action-section">
+    <view class="section-header">
+      <text class="section-title">⚙️ 群组操作</text>
+    </view>
+    
+    <!-- 成员退出按钮 -->
+    <button 
+      class="quit-btn" 
+      bindtap="onQuitGroup"
+      wx:if="{{userRole === 'member'}}"
+    >
+      🚪 退出群组
+    </button>
+    
+    <!-- 创建者解散按钮 -->
+    <button 
+      class="dissolve-btn" 
+      bindtap="onDissolveGroup"
+      wx:if="{{userRole === 'creator'}}"
+    >
+      🗑️ 解散群组
+    </button>
+  </view>
+</view>

@@ -1,0 +1,147 @@
+/* pages/group/list.wxss */
+.container {
+    padding: 30rpx;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  /* 统计卡片 */
+  .stats-card {
+    display: flex;
+    background: white;
+    border-radius: 16rpx;
+    padding: 40rpx;
+    margin-bottom: 30rpx;
+  }
+  
+  .stat-item {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .stat-number {
+    display: block;
+    font-size: 48rpx;
+    font-weight: bold;
+    color: #4facfe;
+    margin-bottom: 10rpx;
+  }
+  
+  .stat-label {
+    font-size: 26rpx;
+    color: #6c757d;
+  }
+  
+  /* 操作按钮 */
+  .action-buttons {
+    display: flex;
+    gap: 20rpx;
+    margin-bottom: 40rpx;
+  }
+  
+  .btn {
+    flex: 1;
+    border: none;
+    border-radius: 12rpx;
+    padding: 28rpx;
+    font-size: 32rpx;
+    font-weight: 600;
+  }
+  
+  .btn.primary {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+  }
+  
+  .btn.secondary {
+    background: white;
+    color: #4facfe;
+    border: 2rpx solid #4facfe;
+  }
+  
+  /* 群组列表 */
+  .group-list {
+    background: white;
+    border-radius: 16rpx;
+    overflow: hidden;
+  }
+  
+  .group-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40rpx 30rpx;
+    border-bottom: 1rpx solid #f1f2f6;
+  }
+  
+  .group-item:last-child {
+    border-bottom: none;
+  }
+  
+  .group-info {
+    flex: 1;
+  }
+  
+  .group-name {
+    display: block;
+    font-size: 34rpx;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 12rpx;
+  }
+  
+  .group-meta {
+    font-size: 26rpx;
+    color: #7f8c8d;
+  }
+  
+  .role-tag {
+    display: inline-block;
+    padding: 6rpx 16rpx;
+    border-radius: 20rpx;
+    font-size: 22rpx;
+    margin-right: 10rpx;
+  }
+  
+  .role-tag.creator {
+    background: #ffeaa7;
+    color: #e17055;
+  }
+  
+  .role-tag.member {
+    background: #dfe6e9;
+    color: #636e72;
+  }
+  
+  .group-arrow {
+    font-size: 32rpx;
+    color: #bdc3c7;
+    margin-left: 20rpx;
+  }
+  
+  /* 空状态 */
+  .empty-state {
+    text-align: center;
+    padding: 100rpx 40rpx;
+  }
+  
+  .empty-icon {
+    font-size: 120rpx;
+    display: block;
+    margin-bottom: 30rpx;
+  }
+  
+  .empty-text {
+    display: block;
+    font-size: 34rpx;
+    color: #2c3e50;
+    margin-bottom: 20rpx;
+    font-weight: 500;
+  }
+  
+  .empty-subtext {
+    display: block;
+    font-size: 28rpx;
+    color: #7f8c8d;
+    line-height: 1.5;
+  }

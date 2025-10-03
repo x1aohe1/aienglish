@@ -1,0 +1,216 @@
+/* pages/group/group.wxss */
+.container {
+    padding: 30rpx;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  /* 邀请码板块样式 */
+  .invite-section {
+    background: white;
+    border-radius: 16rpx;
+    padding: 30rpx;
+    margin-bottom: 30rpx;
+  }
+  
+  .section-header {
+    margin-bottom: 25rpx;
+  }
+  
+  .section-title {
+    font-size: 32rpx;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+  
+  .invite-code-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12rpx;
+    padding: 30rpx;
+    margin-bottom: 25rpx;
+  }
+  
+  .invite-code-info {
+    flex: 1;
+  }
+  
+  .code-label {
+    display: block;
+    font-size: 26rpx;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 10rpx;
+  }
+  
+  .code-value {
+    display: block;
+    font-size: 44rpx;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 4rpx;
+    margin-bottom: 8rpx;
+  }
+  
+  .code-tip {
+    display: block;
+    font-size: 22rpx;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .copy-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2rpx solid rgba(255, 255, 255, 0.5);
+    border-radius: 8rpx;
+    padding: 16rpx 24rpx;
+    font-size: 26rpx;
+    backdrop-filter: blur(10rpx);
+  }
+  
+  .invite-actions {
+    display: flex;
+    gap: 20rpx;
+  }
+  
+  .share-btn {
+    flex: 1;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    border: none;
+    border-radius: 10rpx;
+    padding: 24rpx;
+    font-size: 28rpx;
+    font-weight: 600;
+  }
+  
+  /* 排名标签切换 */
+  .rank-tabs {
+    display: flex;
+    background: white;
+    border-radius: 16rpx;
+    margin-bottom: 30rpx;
+    overflow: hidden;
+  }
+  
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 30rpx;
+    font-size: 30rpx;
+    transition: all 0.3s;
+    border-bottom: 4rpx solid transparent;
+  }
+  
+  .tab.active {
+    border-bottom-color: #4facfe;
+    color: #4facfe;
+    font-weight: 600;
+    background-color: #f8fcff;
+  }
+  
+  /* 排名列表 */
+  .rank-list {
+    background: white;
+    border-radius: 16rpx;
+    overflow: hidden;
+    margin-bottom: 30rpx;
+  }
+  
+  .rank-item {
+    display: flex;
+    align-items: center;
+    padding: 30rpx;
+    border-bottom: 1rpx solid #f1f2f6;
+  }
+  
+  .rank-item:last-child {
+    border-bottom: none;
+  }
+  
+  .rank-num {
+    width: 80rpx;
+    text-align: center;
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #4facfe;
+  }
+  
+  .avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    margin: 0 30rpx;
+  }
+  
+  .nickname {
+    flex: 1;
+    font-size: 32rpx;
+    color: #2c3e50;
+  }
+  
+  .score {
+    font-size: 28rpx;
+    color: #7f8c8d;
+    font-weight: 600;
+  }
+  
+  .empty-tip {
+    text-align: center;
+    padding: 100rpx 30rpx;
+    color: #bdc3c7;
+    font-size: 30rpx;
+  }
+  
+  /* 操作板块样式 */
+  .action-section {
+    background: white;
+    border-radius: 16rpx;
+    padding: 30rpx;
+  }
+  
+  /* 退出按钮样式 */
+  .quit-btn {
+    width: 100%;
+    background: #fff5f5;
+    color: #e74c3c;
+    border: 2rpx solid #e74c3c;
+    border-radius: 12rpx;
+    padding: 28rpx;
+    font-size: 32rpx;
+    font-weight: 600;
+  }
+  
+  .quit-btn:active {
+    background: #ffeaea;
+  }
+  
+  /* 解散按钮样式 - 更醒目的警告样式 */
+  .dissolve-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    border: none;
+    border-radius: 12rpx;
+    padding: 28rpx;
+    font-size: 32rpx;
+    font-weight: 600;
+    box-shadow: 0 4rpx 12rpx rgba(231, 76, 60, 0.3);
+  }
+  
+  .dissolve-btn:active {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    transform: translateY(2rpx);
+  }
+
+  .manage-btn {
+    flex: 1;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 10rpx;
+    padding: 24rpx;
+    font-size: 28rpx;
+    font-weight: 600;
+  }

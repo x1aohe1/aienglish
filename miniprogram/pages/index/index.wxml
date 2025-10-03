@@ -1,29 +1,96 @@
-<!--index.wxml-->
+<!--pages/index/index.wxml-->
 <view class="container">
-  <view class="title">快速了解云开发</view>
-  <view class="top_tip">免鉴权接口调用 免部署后台 高并发</view>
-  <view class="power" wx:key="title" wx:for="{{powerList}}" wx:for-item="power">
-    <view class="power_info" data-index="{{index}}" data-type="{{ power.type }}" bindtap="onClickPowerInfo">
-      <view class="power_info_text">
-        <view class="power_info_text_title">
-          {{power.title}}
-          <view class="power_info_text_tag" wx:if="{{power.tag}}">{{power.tag}}</view>
-        </view>
-        <view class="power_info_text_tip">{{power.tip}}</view>
+  <!-- 头部用户信息 -->
+  <view class="user-header">
+    <view class="user-card">
+      <image class="avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}"></image>
+      <view class="user-greeting">
+        <view class="greeting">Hi, {{userInfo.nickName || '学习者'}}</view>
+        <view class="sub-greeting">今天也要进步一点点</view>
       </view>
-      <image wx:if="{{!power.showItem && power.item.length}}" class="power_info_more" src="../../images/arrow.svg"></image>
-      <image wx:if="{{power.showItem && power.item.length}}" class="power_info_less" src="../../images/arrow.svg"></image>
-      <image wx:if="{{!power.item.length}}" class="power_item_icon" src="../../images/arrow.svg"></image>
-    </view>
-    <view wx:if="{{power.showItem}}">
-      <view wx:key="title" wx:for="{{power.item}}">
-        <view class="line"></view>
-        <view class="power_item" bindtap="jumpPage" data-type="{{ item.type }}" data-page="{{item.page}}">
-          <view class="power_item_title">{{item.title}}</view>
-          <image class="power_item_icon" src="../../images/arrow.svg"></image>
-        </view>
+      <view class="continuous-days">
+        <view class="days-badge">🔥 {{overallStats.continuousDays}}天</view>
       </view>
     </view>
   </view>
-  <cloud-tip-modal showTipProps="{{showTip}}" title="{{title}}" content="{{content}}"></cloud-tip-modal>
+  
+  <!-- 今日学习 -->
+  <view class="stats-section">
+    <view class="section-title">📊 今日学习</view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <view class="stat-value">{{todayStats.learnedWords}}</view>
+        <view class="stat-label">学习单词</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{todayStats.studyTime}}</view>
+        <view class="stat-label">学习时长</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{todayStats.accuracy}}%</view>
+        <view class="stat-label">正确率</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{overallStats.totalGroups}}</view>
+        <view class="stat-label">加入群组</view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 总体统计 -->
+  <view class="stats-section">
+    <view class="section-title">⭐ 总体统计</view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <view class="stat-value">{{overallStats.totalWords}}</view>
+        <view class="stat-label">累计单词</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{overallStats.continuousDays}}</view>
+        <view class="stat-label">连续天数</view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 功能入口 -->
+  <view class="actions-grid">
+    <view class="action-btn primary" bindtap="startLearning">
+      <view class="action-icon">🚀</view>
+      <view class="action-text">开始学习</view>
+    </view>
+    <view class="action-btn" bindtap="startReview">
+      <view class="action-icon">📝</view>
+      <view class="action-text">复习</view>
+    </view>
+    <view class="action-btn" bindtap="goToGroups">
+      <view class="action-icon">👥</view>
+      <view class="action-text">我的群组</view>
+    </view>
+    <view class="action-btn" bindtap="viewStats">
+      <view class="action-icon">📈</view>
+      <view class="action-text">学习报告</view>
+    </view>
+  </view>
+
+  <!-- 最近群组 -->
+  <view class="stats-section" wx:if="{{recentGroups.length > 0}}">
+    <view class="section-title">👥 最近群组</view>
+    <view class="groups-list">
+      <view 
+        class="group-item" 
+        wx:for="{{recentGroups}}" 
+        wx:key="_id"
+        bindtap="onGroupTap"
+        data-id="{{item._id}}"
+        data-name="{{item.name}}"
+      >
+        <view class="group-avatar">{{item.name.charAt(0)}}</view>
+        <view class="group-info">
+          <view class="group-name">{{item.name}}</view>
+          <view class="group-members">{{item.memberCount}}人 · 排名#{{item.myRank}}</view>
+        </view>
+        <view class="group-arrow">›</view>
+      </view>
+    </view>
+  </view>
 </view>

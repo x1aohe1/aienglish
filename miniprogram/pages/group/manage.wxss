@@ -1,0 +1,181 @@
+/* pages/group/manage.wxss */
+.container {
+    padding: 30rpx;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  /* 统计卡片 */
+  .stats-card {
+    display: flex;
+    background: white;
+    border-radius: 16rpx;
+    padding: 40rpx;
+    margin-bottom: 30rpx;
+  }
+  
+  .stat-item {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .stat-number {
+    display: block;
+    font-size: 48rpx;
+    font-weight: bold;
+    color: #4facfe;
+    margin-bottom: 10rpx;
+  }
+  
+  .stat-label {
+    font-size: 26rpx;
+    color: #6c757d;
+  }
+  
+  /* 板块样式 */
+  .section {
+    background: white;
+    border-radius: 16rpx;
+    margin-bottom: 30rpx;
+    overflow: hidden;
+  }
+  
+  .section-header {
+    padding: 30rpx;
+    border-bottom: 1rpx solid #f1f2f6;
+  }
+  
+  .section-title {
+    display: block;
+    font-size: 32rpx;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8rpx;
+  }
+  
+  .section-subtitle {
+    font-size: 26rpx;
+    color: #7f8c8d;
+  }
+  
+  /* 成员列表 */
+  .member-list {
+    padding: 0;
+  }
+  
+  .member-item {
+    display: flex;
+    align-items: center;
+    padding: 30rpx;
+    border-bottom: 1rpx solid #f1f2f6;
+  }
+  
+  .member-item:last-child {
+    border-bottom: none;
+  }
+  
+  .avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    margin-right: 25rpx;
+  }
+  
+  .member-info {
+    flex: 1;
+  }
+  
+  .member-name {
+    display: block;
+    font-size: 32rpx;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 6rpx;
+  }
+  
+  .member-role {
+    display: inline-block;
+    padding: 6rpx 16rpx;
+    border-radius: 20rpx;
+    font-size: 22rpx;
+    margin-right: 12rpx;
+  }
+  
+  .member-role.creator {
+    background: #ffeaa7;
+    color: #e17055;
+  }
+  
+  .member-role.member {
+    background: #dfe6e9;
+    color: #636e72;
+  }
+  
+  .apply-time, .join-time {
+    display: block;
+    font-size: 24rpx;
+    color: #7f8c8d;
+    margin-top: 4rpx;
+  }
+  
+  /* 操作按钮 */
+  .action-buttons {
+    display: flex;
+    gap: 15rpx;
+  }
+  
+  .btn {
+    padding: 16rpx 24rpx;
+    border: none;
+    border-radius: 8rpx;
+    font-size: 24rpx;
+    font-weight: 600;
+  }
+  
+  .approve-btn {
+    background: #00b894;
+    color: white;
+  }
+  
+  .reject-btn {
+    background: #ff7675;
+    color: white;
+  }
+  
+  /* 成员统计 */
+  .member-stats {
+    text-align: right;
+  }
+  
+  .stat {
+    display: block;
+    font-size: 24rpx;
+    color: #7f8c8d;
+    margin-bottom: 4rpx;
+  }
+  
+  /* 空状态 */
+  .empty-state {
+    text-align: center;
+    padding: 80rpx 30rpx;
+  }
+  
+  .empty-icon {
+    font-size: 80rpx;
+    display: block;
+    margin-bottom: 20rpx;
+  }
+  
+  .empty-text {
+    display: block;
+    font-size: 30rpx;
+    color: #2c3e50;
+    margin-bottom: 12rpx;
+    font-weight: 500;
+  }
+  
+  .empty-subtext {
+    display: block;
+    font-size: 26rpx;
+    color: #7f8c8d;
+  }

@@ -1,0 +1,38 @@
+<!-- pages/group/create.wxml -->
+<view class="container">
+  <!-- 创建群组表单 -->
+  <view class="form-card">
+    <view class="form-item">
+      <text class="form-label">群组名称</text>
+      <input 
+        class="form-input" 
+        type="text" 
+        placeholder="为您的群组起个名字" 
+        placeholder-style="color: #bdc3c7;"
+        maxlength="20"
+        bindinput="onNameInput"
+        value="{{groupName}}"
+      />
+      <text class="char-count">{{groupName.length}}/20</text>
+    </view>
+
+    <view class="tips">
+      <text class="tips-title">💡 创建提示</text>
+      <text class="tips-item">• 群组名称应简洁明了，便于朋友识别</text>
+      <text class="tips-item">• 创建后您将成为群组管理员</text>
+      <text class="tips-item">• 您可以邀请朋友通过群组ID加入</text>
+      <text class="tips-item">• 群组名称可以重复，系统会通过唯一ID区分</text>
+    </view>
+  </view>
+
+  <!-- 创建按钮 -->
+  <view class="button-section">
+    <button 
+      class="create-btn {{groupName.length === 0 ? 'disabled' : ''}}" 
+      bindtap="onCreateGroup"
+      disabled="{{groupName.length === 0}}"
+    >
+      创建群组
+    </button>
+  </view>
+</view>

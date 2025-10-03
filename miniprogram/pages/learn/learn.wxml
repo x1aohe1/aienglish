@@ -1,0 +1,63 @@
+<!--pages/learn/learn.wxml-->
+<view class="container">
+  <!-- 状态栏 -->
+    <view class="status-bar">
+    <view class="progress">{{currentIndex + 1}}/{{wordQueue.length}}</view>
+    <view class="status-text">
+        <text wx:if="{{learnStatus === 'judging'}}">正在学习</text>
+        <text wx:elif="{{learnStatus === 'hinting'}}">上下文提示</text>
+        <text wx:elif="{{learnStatus === 'learning'}}">掌握确认</text>
+    </view>
+    <view class="function-icons">
+        <!-- 预留位置，未来可以放其他功能 -->
+    </view>
+    </view>
+  <!-- 核心单词卡片区域 -->
+  <view class="card">
+    <!-- 单词和音标 - 始终显示 -->
+    <view class="word-section">
+      <text class="word">{{currentWord.word}}</text>
+      <text class="phonetic">{{currentWord.phonetic}}</text>
+    </view>
+
+    <!-- 状态二：英文例句提示 -->
+    <view class="hint-section" wx:if="{{learnStatus === 'hinting'}}">
+      <text class="example-en">{{currentWord.example_en}}</text>
+    </view>
+
+    <!-- 状态三：完整学习详情 -->
+    <view class="detail-section" wx:if="{{learnStatus === 'learning'}}">
+      <view class="meaning-section">
+        <text class="type">{{currentWord.type}}</text>
+        <text class="meaning">{{currentWord.meaning}}</text>
+      </view>
+      <view class="example-section">
+        <text class="example-en">{{currentWord.example_en}}</text>
+        <text class="example-zh">{{currentWord.example_zh}}</text>
+      </view>
+      <view class="audio-section">
+        <button class="audio-btn" bindtap="playAudio">🔊 发音</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 按钮区域 -->
+  <view class="button-section">
+    <!-- 状态一按钮：认识 / 不认识 -->
+    <view class="judging-buttons" wx:if="{{learnStatus === 'judging'}}">
+      <button class="btn know-btn" bindtap="onTapKnow">认识</button>
+      <button class="btn dont-know-btn" bindtap="onTapDontKnow">不认识</button>
+    </view>
+
+    <!-- 状态二按钮：想起来了 / 还是不认识 -->
+    <view class="hinting-buttons" wx:if="{{learnStatus === 'hinting'}}">
+      <button class="btn remember-btn" bindtap="onTapRemember">想起来了</button>
+      <button class="btn still-dont-know-btn" bindtap="onTapStillDontKnow">还是不认识</button>
+    </view>
+
+    <!-- 状态三按钮：下一个 -->
+    <view class="learning-buttons" wx:if="{{learnStatus === 'learning'}}">
+      <button class="btn next-btn" bindtap="onTapNext">下一个</button>
+    </view>
+  </view>
+</view>

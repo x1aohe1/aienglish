@@ -1,0 +1,99 @@
+<!-- pages/group/join.wxml -->
+<view class="container">
+  <!-- 加入方式选项卡 -->
+  <view class="method-tabs">
+    <view 
+      class="method-tab {{activeTab=='search'?'active':''}}" 
+      bindtap="switchTab" 
+      data-tab="search"
+    >
+      🔍 搜索加入
+    </view>
+    <view 
+      class="method-tab {{activeTab=='invite'?'active':''}}" 
+      bindtap="switchTab" 
+      data-tab="invite"
+    >
+      🎟️ 邀请码加入
+    </view>
+  </view>
+
+  <!-- 搜索加入表单 -->
+  <view wx:if="{{activeTab === 'search'}}" class="form-card">
+    <view class="form-item">
+      <text class="form-label">群组ID</text>
+      <input 
+        class="form-input" 
+        type="text" 
+        placeholder="请输入群组ID" 
+        placeholder-style="color: #bdc3c7;"
+        bindinput="onGroupIdInput"
+        value="{{groupId}}"
+      />
+    </view>
+
+    <view class="tips">
+      <text class="tips-title">💡 搜索加入说明</text>
+      <text class="tips-item">• 向群组创建者或成员询问群组ID</text>
+      <text class="tips-item">• 搜索加入需要群主审核批准</text>
+      <text class="tips-item">• 审核通过后即可参与排名</text>
+    </view>
+
+    <!-- 搜索到的群组信息 -->
+    <view wx:if="{{searchedGroup}}" class="group-preview">
+      <text class="preview-title">找到群组：</text>
+      <view class="group-info">
+        <text class="group-name">{{searchedGroup.name}}</text>
+        <text class="group-meta">创建者：{{searchedGroup.creatorNickName}} · {{searchedGroup.memberCount}}名成员 · 需要审核</text>
+      </view>
+    </view>
+
+    <button 
+      class="action-btn search-btn" 
+      bindtap="onSearchGroup"
+      disabled="{{!groupId}}"
+    >
+      搜索群组
+    </button>
+  </view>
+
+  <!-- 邀请码加入表单 -->
+  <view wx:if="{{activeTab === 'invite'}}" class="form-card">
+    <view class="form-item">
+      <text class="form-label">邀请码</text>
+      <input 
+        class="form-input" 
+        type="text" 
+        placeholder="请输入6位邀请码" 
+        placeholder-style="color: #bdc3c7;"
+        bindinput="onInviteCodeInput"
+        value="{{inviteCode}}"
+        maxlength="6"
+      />
+    </view>
+
+    <view class="tips">
+      <text class="tips-title">🎯 邀请码加入说明</text>
+      <text class="tips-item">• 向群组创建者或成员索取邀请码</text>
+      <text class="tips-item">• 邀请码加入无需审核，直接生效</text>
+      <text class="tips-item">• 立即加入即可参与排名竞争</text>
+    </view>
+
+    <!-- 邀请码找到的群组信息 -->
+    <view wx:if="{{invitedGroup}}" class="group-preview invite-preview">
+      <text class="preview-title">找到群组：</text>
+      <view class="group-info">
+        <text class="group-name">{{invitedGroup.name}}</text>
+        <text class="group-meta">创建者：{{invitedGroup.creatorNickName}} · {{invitedGroup.memberCount}}名成员 · 直接加入</text>
+      </view>
+    </view>
+
+    <button 
+      class="action-btn invite-btn" 
+      bindtap="onJoinByInvite"
+      disabled="{{!inviteCode || inviteCode.length !== 6}}"
+    >
+      立即加入
+    </button>
+  </view>
+</view>

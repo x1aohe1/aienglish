@@ -1,0 +1,67 @@
+<!--pages/learn/summary.wxml-->
+<view class="summary-container">
+  <!-- 头部成就 -->
+  <view class="achievement-header">
+    <view class="achievement-icon">🎉</view>
+    <view class="achievement-title">学习完成！</view>
+    <view class="achievement-subtitle">恭喜你完成了本次学习</view>
+  </view>
+
+  <!-- 本次学习统计 -->
+  <view class="stats-section">
+    <view class="section-title">本次学习统计</view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <view class="stat-value">{{sessionStats.totalWords}}</view>
+        <view class="stat-label">学习单词</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{sessionStats.correctCount}}</view>
+        <view class="stat-label">正确数量</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{sessionStats.accuracy}}%</view>
+        <view class="stat-label">正确率</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{sessionStats.studyTime}}min</view>
+        <view class="stat-label">学习时长</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 学习成就 -->
+  <view class="achievement-section">
+    <view class="section-title">学习成就</view>
+    <view class="achievement-list">
+      <view class="achievement-item">
+        <view class="achievement-icon">📚</view>
+        <view class="achievement-content">
+          <view class="achievement-text">累计学习单词</view>
+          <view class="achievement-value">{{userStats.totalLearned}} 个</view>
+        </view>
+      </view>
+      <view class="achievement-item">
+        <view class="achievement-icon">🔥</view>
+        <view class="achievement-content">
+          <view class="achievement-text">连续学习</view>
+          <view class="achievement-value">{{userStats.continuousDays}} 天</view>
+        </view>
+      </view>
+      <view class="achievement-item" wx:if="{{groupId}}">
+        <view class="achievement-icon">🏆</view>
+        <view class="achievement-content">
+          <view class="achievement-text">群组排名</view>
+          <view class="achievement-value">第 {{userStats.groupRank}} 名</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="btn-primary" bindtap="onContinueLearning">继续学习下一组</button>
+    <button class="btn-secondary" bindtap="onReviewMistakes">复习错题</button>
+    <button class="btn-outline" bindtap="onBackToHome">返回首页</button>
+  </view>
+</view>

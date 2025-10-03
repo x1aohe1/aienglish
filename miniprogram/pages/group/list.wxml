@@ -1,0 +1,41 @@
+<!-- pages/group/list.wxml -->
+<view class="container">
+  <!-- 顶部统计 -->
+  <button bindtap="callGenerateTestData" type="primary">生成测试数据</button>
+  <view class="stats-card">
+    <view class="stat-item">
+      <text class="stat-number">{{stats.createdCount}}</text>
+      <text class="stat-label">创建的群组</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-number">{{stats.joinedCount}}</text>
+      <text class="stat-label">加入的群组</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="btn primary" bindtap="goToCreate">创建群组</button>
+    <button class="btn secondary" bindtap="goToJoin">加入群组</button>
+  </view>
+
+  <!-- 群组列表 -->
+  <view class="group-list">
+    <view wx:for="{{groupList}}" wx:key="_id" class="group-item" bindtap="goToGroupDetail" data-groupid="{{item._id}}">
+      <view class="group-info">
+        <text class="group-name">{{item.name}}</text>
+        <text class="group-meta">
+          <text class="role-tag {{item.userRole}}">{{item.userRole === 'creator' ? '创建者' : '成员'}}</text>
+          · {{item.memberCount}} 名成员
+        </text>
+      </view>
+      <view class="group-arrow">></view>
+    </view>
+
+    <view wx:if="{{groupList.length === 0}}" class="empty-state">
+      <text class="empty-icon">👥</text>
+      <text class="empty-text">您还没有加入任何群组</text>
+      <text class="empty-subtext">创建或加入一个群组，开始与朋友一起学习</text>
+    </view>
+  </view>
+</view>
